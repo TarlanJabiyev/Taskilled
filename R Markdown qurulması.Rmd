@@ -1,0 +1,97 @@
+---
+title: "R Markdown qurulması"
+author: "Tarlan Jabiyev"
+output: html_document
+---
+
+# R Markdown
+## R Markdown
+### R Markdown
+#### R Markdown
+##### R Markdown
+###### R Markdown
+R Markdown
+
+
+```{r verilən isim, include=FALSE}
+library(tidyverse)
+library(highcharter)
+
+dataset <- dslabs::gapminder
+```
+
+### default
+
+```{r}
+dataset %>% 
+  group_by(continent) %>% 
+  summarise(life_expectancy = mean(life_expectancy)) %>% 
+  hchart("line", hcaes(x = continent,y = life_expectancy)) 
+```
+
+### echo=FALSE
+
+```{r echo=FALSE}
+dataset %>% 
+  group_by(continent) %>% 
+  summarise(life_expectancy = mean(life_expectancy)) %>% 
+  hchart("line", hcaes(x = continent,y = life_expectancy)) 
+```
+
+### echo=TRUE
+
+```{r echo=TRUE}
+dataset %>% 
+  group_by(continent) %>% 
+  summarise(life_expectancy = mean(life_expectancy)) %>% 
+  hchart("line", hcaes(x = continent,y = life_expectancy)) 
+```
+
+### include=FALSE
+
+```{r include=FALSE}
+dataset %>% 
+  group_by(continent) %>% 
+  summarise(life_expectancy = mean(life_expectancy)) %>% 
+  hchart("line", hcaes(x = continent,y = life_expectancy)) 
+```
+
+### warning=TRUE
+
+```{r warning=TRUE}
+dataset %>% 
+  mutate(region = as.numeric(as.character(region))) %>% 
+  group_by(continent) %>% 
+  summarise(life_expectancy = mean(life_expectancy)) %>% 
+  hchart("line", hcaes(x = continent,y = life_expectancy)) 
+```
+
+### warning=FALSE
+
+```{r warning=FALSE}
+dataset %>% 
+  mutate(region = as.numeric(as.character(region))) %>% 
+  group_by(continent) %>% 
+  summarise(life_expectancy = mean(life_expectancy)) %>% 
+  hchart("line", hcaes(x = continent,y = life_expectancy)) 
+```
+
+### fig.height=2, fig.width=4
+
+```{r fig.height=2, fig.width=4}
+dataset %>% 
+  group_by(continent) %>% 
+  summarise(life_expectancy = mean(life_expectancy)) %>% 
+  ggplot(aes(x = continent,y = life_expectancy, fill = continent)) +
+  geom_col(show.legend = F)
+```
+
+### fig.height=12, fig.width=20
+
+```{r fig.height=12, fig.width=20}
+dataset %>% 
+  group_by(continent) %>% 
+  summarise(life_expectancy = mean(life_expectancy)) %>% 
+  ggplot(aes(x = continent,y = life_expectancy, fill = continent)) +
+  geom_col(show.legend = F)
+```
