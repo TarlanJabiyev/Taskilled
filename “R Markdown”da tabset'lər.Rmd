@@ -1,0 +1,44 @@
+---
+title: "“R Markdown”da tabset'lər"
+author: 
+  name: "Müəllif: Tərlan Cəbiyev"
+  email: "email@gmail.com"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: sandstone
+---
+
+```{r include=FALSE}
+library(tidyverse) 
+library(DT)
+library(highcharter)
+
+dataset <- dslabs::gapminder
+```
+
+# Tab {.tabset}
+
+## Plot
+
+```{r echo=FALSE}
+dataset %>% 
+  group_by(continent) %>% 
+  summarise(life_expectancy = mean(life_expectancy)) %>% 
+  hchart("line", hcaes(x = continent,y = life_expectancy)) 
+```
+
+## Cədvəl
+
+```{r echo=FALSE}
+dataset %>% 
+  datatable(rownames = F,
+            class = "cell-border stripe",
+            filter = "top",
+            extensions = "Buttons", options = list(
+              dom = "Blfrtip", buttons = list(I("colvis"),c("copy","csv","excel","pdf")))
+            )
+```
+
+

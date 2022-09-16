@@ -1,0 +1,44 @@
+---
+title: "Çox sütunlu səhifə"
+author: 
+  name: "Müəllif: Tərlan Cəbiyev"
+  email: "email@gmail.com"
+output: 
+  html_document:
+    theme: sandstone
+---
+
+```{r include=FALSE}
+library(tidyverse) 
+library(DT)
+library(highcharter)
+
+dataset <- dslabs::gapminder
+```
+
+\
+\
+
+::: columns
+::: column
+
+```{r}
+dataset %>% 
+  group_by(continent) %>% 
+  summarise(life_expectancy = mean(life_expectancy)) %>% 
+  arrange(desc(life_expectancy))
+```
+
+:::
+
+::: column
+
+```{r}
+dataset %>% 
+  group_by(region) %>% 
+  summarise(life_expectancy = mean(life_expectancy)) %>% 
+  arrange(desc(life_expectancy))
+```
+
+:::
+:::

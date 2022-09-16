@@ -1,0 +1,36 @@
+---
+title: "R Markdown'da kodu gizlətmək/göstərmək"
+author: 
+  name: "Müəllif: Tərlan Cəbiyev"
+  email: "email@gmail.com"
+output: 
+  html_document:
+    code_folding: hide
+---
+
+```{r include=FALSE}
+library(tidyverse) 
+library(DT)
+library(highcharter)
+
+dataset <- dslabs::gapminder
+```
+
+```{r}
+dataset %>% 
+  group_by(continent) %>% 
+  summarise(life_expectancy = mean(life_expectancy)) %>% 
+  hchart("line", hcaes(x = continent,y = life_expectancy)) 
+```
+
+```{r}
+dataset %>% 
+  datatable(rownames = F,
+            class = "cell-border stripe",
+            filter = "top",
+            extensions = "Buttons", options = list(
+              dom = "Blfrtip", buttons = list(I("colvis"),c("copy","csv","excel","pdf")))
+            )
+```
+
+

@@ -1,0 +1,118 @@
+---
+title: "R Markdown'da müxtəlif cədvəllər"
+author: 
+  name: "Müəllif: Tərlan Cəbiyev"
+  email: "email@gmail.com"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: sandstone
+---
+
+# Cədvəllər
+
+```{r include=FALSE}
+library(tidyverse) 
+library(DT)
+
+dataset <- dslabs::gapminder
+```
+
+```{r echo=FALSE}
+dataset %>% datatable()
+```
+
+## rownames
+
+```{r echo=FALSE}
+dataset %>% 
+  datatable(rownames = F)
+#
+```
+
+## class
+
+```{r echo=FALSE}
+dataset %>% 
+  datatable(rownames = F,
+            class = "cell-border stripe")
+#display,cell-border,compact,hover,nowrap,order-column,row-border,stripe
+```
+
+## filter
+
+```{r echo=FALSE}
+dataset %>% 
+  datatable(rownames = F,
+            class = "cell-border stripe",
+            filter = "top")
+```
+
+## extensions
+
+```{r echo=FALSE}
+dataset %>% 
+  datatable(rownames = F,
+            class = "cell-border stripe",
+            filter = "top",
+            extensions = "Buttons", options = list(
+              dom = "Blfrtip", buttons = list(I("colvis"),c("copy","csv","excel","pdf")))
+            )
+```
+
+## formatStyle
+
+### Sütundakı dəyərləri rəngləmək
+
+```{r echo=FALSE}
+dataset %>% 
+  datatable(rownames = F,
+            class = "cell-border stripe",
+            filter = "top",
+            extensions = "Buttons", options = list(
+              dom = "Blfrtip", buttons = list(I("colvis"),c("copy","csv","excel","pdf")))
+            )  %>% 
+  formatStyle(
+    columns = "continent",
+    backgroundColor = styleEqual(c("Europe","Africa","Americas","Asia","Oceania"), 
+                                 c("lightgreen","orange","red","lightblue","green"))
+  )
+```
+
+### Sətrləri sütunun dəyərlərinə görə rəngləmək
+
+```{r echo=FALSE}
+dataset %>% 
+  datatable(rownames = F,
+            class = "cell-border stripe",
+            filter = "top",
+            extensions = "Buttons", options = list(
+              dom = "Blfrtip", buttons = list(I("colvis"),c("copy","csv","excel","pdf")))
+            )  %>% 
+  formatStyle(
+    columns = "continent",
+    target = "row",
+    backgroundColor = styleEqual(c("Europe","Africa","Americas","Asia","Oceania"), 
+                                 c("lightgreen","orange","red","lightblue","green"))
+  )
+```
+
+### Sütunu başqa sütunun dəyərlərinə görə rəngləmək
+
+```{r echo=FALSE}
+dataset %>% 
+  datatable(rownames = F,
+            class = "cell-border stripe",
+            filter = "top",
+            extensions = "Buttons", options = list(
+              dom = "Blfrtip", buttons = list(I("colvis"),c("copy","csv","excel","pdf")))
+            )  %>% 
+  formatStyle(
+    "country","continent",
+    backgroundColor = styleEqual(c("Europe","Africa","Americas","Asia","Oceania"), 
+                                 c("lightgreen","orange","red","lightblue","green"))
+  )
+```
+
+
